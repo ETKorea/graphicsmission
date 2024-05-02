@@ -11,7 +11,7 @@ async function start() {
   container.style.position = 'relative'
   document.body.append(container)
   const labeledFaceDescriptors = await loadLabeledImages()
-  const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.6)
+  const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.6) //60퍼센트 이상 얼굴 인식될경우 얼굴로 판단
   let image
   let canvas
   document.body.append('Loaded')
@@ -40,7 +40,7 @@ function loadLabeledImages() {
   return Promise.all(
     labels.map(async label => {
       const descriptions = []//https://github.com/WebDevSimplified/Face-Recognition-JavaScript/tree/master/labeled_images
-      for (let i = 1; i <= 9; i++) {//https://raw.githubusercontent.com/WebDevSimplified/Face-Recognition-JavaScript/master/labeled_images/${label}/${i}.jpg
+      for (let i = 1; i <= 9; i++) {
         const img = await faceapi.fetchImage(`https://github.com/ETKorea/graphicsmisson/tree/main/labeled_images/${label}/${i}.jpg`)
         const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
         descriptions.push(detections.descriptor)
