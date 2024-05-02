@@ -39,9 +39,9 @@ function loadLabeledImages() {
   const labels = ['Choi Minsik', 'Kim Goeun', 'Lee Dohyun', 'Yoo Haejin']
   return Promise.all(
     labels.map(async label => {
-      const descriptions = []
+      const descriptions = []//https://github.com/WebDevSimplified/Face-Recognition-JavaScript/tree/master/labeled_images
       for (let i = 1; i <= 9; i++) {//https://raw.githubusercontent.com/WebDevSimplified/Face-Recognition-JavaScript/master/labeled_images/${label}/${i}.jpg
-        const img = await faceapi.fetchImage(`https://github.com/ETKorea/graphicsmisson/main/labeled_images/${label}/${i}.jpg`)
+        const img = await faceapi.fetchImage(`https://github.com/ETKorea/graphicsmisson/tree/main/labeled_images/${label}/${i}.jpg`)
         const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
         descriptions.push(detections.descriptor)
       }
