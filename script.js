@@ -1,4 +1,4 @@
-const imageUpload = document.getElementById('imageUpload')
+const imageUpload = document.getElementById('imageUpload') // 여전히 사진이 업로드가되지않아 이유를 파악하는게 우선일 듯
 
 Promise.all([
   faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
@@ -40,7 +40,7 @@ function loadLabeledImages() {
   return Promise.all(
     labels.map(async label => {
       const descriptions = []//https://github.com/WebDevSimplified/Face-Recognition-JavaScript/tree/master/labeled_images
-      for (let i = 1; i <= 9; i++) {
+      for (let i = 1; i <= 9; i++) {//tree를 blob로 바꿔보기 or 전체 코드끝에 ; 붙이기 
         const img = await faceapi.fetchImage(`https://github.com/ETKorea/graphicsmisson/tree/main/labeled_images/${label}/${i}.jpg`)
         const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
         descriptions.push(detections.descriptor)
