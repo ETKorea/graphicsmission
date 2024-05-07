@@ -37,6 +37,21 @@ async function start() {
 
 async function loadLabeledImages() {
   const labels = ['Choi Minsik', 'Kim Goeun', 'Lee Dohyun', 'Yoo Haejin'];
+  return Promise.all(
+    labels.map(async label => {
+      const descriptions = [];
+      for (let i = 1; i <= 9; i++) {
+        const img = await faceapi.fetchImage('https://raw.githubusercontent.com/ETKorea/graphicsmisson/main/labeled_images/${label}/${i}.jpg');
+        const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
+        descriptions.push(detections.descriptor);
+      }
+
+      return new faceapi.LabeledFaceDescriptors(label, descriptions);
+    })
+  )
+}
+/*async function loadLabeledImages() {
+  const labels = ['Choi Minsik', 'Kim Goeun', 'Lee Dohyun', 'Yoo Haejin'];
   const labeledFaceDescriptors = [];
   
   for (const label of labels) {
@@ -52,19 +67,4 @@ async function loadLabeledImages() {
   }
   
   return labeledFaceDescriptors;
-}
-/*async function loadLabeledImages() {
-  const labels = ['Choi Minsik', 'Kim Goeun', 'Lee Dohyun', 'Yoo Haejin'];
-  return Promise.all(
-    labels.map(async label => {
-      const descriptions = []//https://github.com/WebDevSimplified/Face-Recognition-JavaScript/tree/master/labeled_images
-      for (let i = 1; i <= 9; i++) {//tree를 blob로 바꿔보기 or 전체 코드끝에 ; 붙이기 
-        const img = await faceapi.fetchImage(`https://github.com/ETKorea/graphicsmisson/tree/main/labeled_images/${label}/${i}.jpg`);
-        const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
-        descriptions.push(detections.descriptor);
-      }
-
-      return new faceapi.LabeledFaceDescriptors(label, descriptions);
-    })
-  )
 }*/
