@@ -1,5 +1,4 @@
-const imageUpload = document.getElementById('imageUpload') // 여전히 사진이 업로드가되지않아 이유를 파악하는게 우선일 듯
-
+const imageUpload = document.getElementById('imageUpload')
 Promise.all([
   faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
   faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
@@ -41,7 +40,7 @@ async function loadLabeledImages() {
     labels.map(async label => {
       const descriptions = []
       for (let i = 1; i <= 9; i++) {
-        const img = await faceapi.fetchImage('https://raw.githubusercontent.com/ETKorea/graphicsmisson/main/labeled_images/${label}/${i}.jpg')
+        const img = await faceapi.fetchImage(`https://raw.githubusercontent.com/ETKorea/graphicsmisson/main/labeled_images/${label}/${i}.jpg`)
         const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
         descriptions.push(detections.descriptor)
       }
@@ -50,21 +49,3 @@ async function loadLabeledImages() {
     })
   )
 }
-/*async function loadLabeledImages() {
-  const labels = ['Choi Minsik', 'Kim Goeun', 'Lee Dohyun', 'Yoo Haejin']
-  const labeledFaceDescriptors = []
-  
-  for (const label of labels) {
-    const descriptions = []
-    
-    for (let i = 1; i <= 9; i++) {
-      const img = await faceapi.fetchImage(`https://raw.githubusercontent.com/ETKorea/graphicsmisson/main/labeled_images/${label}/${i}.jpg`)
-      const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
-      descriptions.push(detections.descriptor)
-    }
-    
-    labeledFaceDescriptors.push(new faceapi.LabeledFaceDescriptors(label, descriptions))
-  }
-  
-  return labeledFaceDescriptors
-}*/
