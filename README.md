@@ -1,6 +1,7 @@
 ## 프로그램 등록과정
-  - script.js에 있는 파일중 'labeled_image' 와 'test_images'의 내용을 수정합니다.
+  - 파일중 'labeled_image' 와 'test_images'의 내용을 수정합니다.
   - 'labeled_image'내의 파일명을 수정하여 원하는 인물의 이름을 정합니다.
+  - script.js의 코드중 const labels [] 부분을 위 인물의 이름과 일치하게 변경합니다. 
     
 ## 프로그램 인식과정 
   - 사진에 있는 얼굴을 감지하여 labeled_images 폴더를 기반으로 일치하는 인물이 있는지 찾아냅니다.
